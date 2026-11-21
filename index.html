@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chin-Yu Wu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Chin-Yu Wu — Computer Science, National Chengchi University. Deep reinforcement learning for Industrial IoT edge networks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<style>
+/* Layout: one long column like a lab notebook — a fixed left index on wide screens, sticky top index on phones; evidence images sit beside each entry. */
+:root {
+  --bg: #F4F6F6;
+  --surface: #FFFFFF;
+  --ink: #16212B;
+  --muted: #5A6872;
+  --rule: #D5DCDF;
+  --signal: #0B6E6A;      /* teal: links, research */
+  --signal-soft: #E1EFEE;
+  --award: #9A5B00;       /* amber: awards */
+  --award-soft: #F6EBD9;
+  --shadow: 0 1px 2px rgba(22,33,43,.06), 0 6px 20px rgba(22,33,43,.06);
+  --f-display: "Nunito", ui-rounded, "SF Pro Rounded", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Nunito", ui-rounded, "SF Pro Rounded", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "Nunito", ui-rounded, "SF Pro Rounded", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F171D; --surface: #16212A; --ink: #E4EBEE; --muted: #9AAAB3; --rule: #2A3843;
+    --signal: #5CC3BC; --signal-soft: #15302F; --award: #E3A64D; --award-soft: #33270F;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F171D; --surface: #16212A; --ink: #E4EBEE; --muted: #9AAAB3; --rule: #2A3843;
+  --signal: #5CC3BC; --signal-soft: #15302F; --award: #E3A64D; --award-soft: #33270F;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--signal); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; border-radius: 3px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2; margin: 0; }
+.mono { font-family: var(--f-mono); font-size: .82rem; font-weight: 600; letter-spacing: .03em; font-variant-numeric: tabular-nums; }
+
+.shell {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 56px;
+}
+
+/* index */
+.index { position: sticky; top: env(safe-area-inset-top, 0px); align-self: start; padding-block: 48px; }
+.index .who { font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; }
+.index .who span { display: block; font-family: var(--f-mono); font-weight: 400; font-size: .72rem; color: var(--muted); margin-top: 2px; }
+.index ol { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 4px; }
+.index a { display: grid; grid-template-columns: 2.2em 1fr; color: var(--muted); text-decoration: none; font-size: .9rem; padding: 4px 0; }
+.index a:hover { color: var(--ink); }
+.index a b { font-family: var(--f-mono); font-weight: 400; font-size: .75rem; color: var(--signal); padding-top: 2px; }
+
+main { padding-block: 48px 80px; min-width: 0; }
+
+/* hero */
+.hero { display: grid; gap: 22px; padding-bottom: 40px; border-bottom: 1px solid var(--rule); }
+.hero .kicker { color: var(--signal); }
+.id-row { display: flex; align-items: center; gap: 24px; }
+.id-text { display: grid; gap: 10px; min-width: 0; }
+.headshot { width: 128px; height: 128px; border-radius: 50%; object-fit: cover; flex: none; border: 3px solid var(--surface); box-shadow: var(--shadow); background: var(--surface); }
+@media (max-width: 520px) { .id-row { gap: 16px; } .headshot { width: 88px; height: 88px; } }
+.hero h1 { font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 800; letter-spacing: -.01em; }
+.hero p.lede { font-size: 1.15rem; max-width: 62ch; margin: 0; color: var(--ink); }
+.hero p.lede em { font-style: normal; color: var(--signal); font-weight: 500; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 999px;
+  border: 1px solid var(--rule); background: var(--surface); color: var(--ink);
+  font: 700 .92rem var(--f-body); text-decoration: none; cursor: pointer;
+}
+.btn.primary { background: var(--signal); border-color: var(--signal); color: var(--bg); }
+.btn:hover { border-color: var(--signal); }
+.email { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: .9rem; }
+.email code { font-family: var(--f-mono); font-size: .85rem; color: var(--ink); user-select: all; }
+.email button { border: 0; background: none; color: var(--signal); font: 500 .85rem var(--f-body); cursor: pointer; padding: 4px; }
+
+/* readout strip */
+.readout { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.readout > div { padding: 14px 16px; border-left: 1px solid var(--rule); min-width: 0; }
+.readout > div:first-child { border-left: 0; }
+.readout .v { font-family: var(--f-display); font-weight: 800; font-size: 1.45rem; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.readout .v small { font-size: .85rem; color: var(--muted); font-weight: 500; }
+.readout .k { font-size: .78rem; color: var(--muted); margin-top: 4px; }
+
+/* sections */
+section { padding-top: 56px; scroll-margin-top: 16px; }
+.sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; }
+.sec-head .n { font-family: var(--f-mono); color: var(--signal); font-size: .85rem; }
+.sec-head h2 { font-size: 1.75rem; font-weight: 800; }
+.sec-head .n { font-weight: 700; }
+
+.entry { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 28px; padding: 26px 0; border-top: 1px solid var(--rule); }
+.entry:first-of-type { border-top: 0; padding-top: 4px; }
+.entry.wide-figs { grid-template-columns: minmax(0, 1fr); }
+.entry h3 { font-size: 1.22rem; font-weight: 700; margin-bottom: 8px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-bottom: 10px; color: var(--muted); font-size: .9rem; }
+.meta .me { color: var(--ink); font-weight: 600; }
+.tag { font-family: var(--f-mono); font-size: .76rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--signal-soft); color: var(--signal); white-space: nowrap; }
+.tag.award { background: var(--award-soft); color: var(--award); }
+.tag.plain { background: transparent; border: 1px solid var(--rule); color: var(--muted); }
+.tag.wrap { white-space: normal; }
+.entry p { margin: 0 0 10px; max-width: 68ch; }
+.entry ul { margin: 6px 0 10px; padding-left: 1.1em; max-width: 68ch; }
+.entry li { margin: 4px 0; }
+.result { display: inline-block; margin-top: 4px; font-family: var(--f-mono); font-size: .8rem; color: var(--muted); }
+.result b { color: var(--ink); font-weight: 500; }
+
+/* figures */
+.figs { display: grid; gap: 12px; align-content: start; }
+.figs.row { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 14px; }
+figure { margin: 0; min-width: 0; }
+figure button {
+  display: block; width: 100%; padding: 0; border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden;
+  background: var(--surface); cursor: zoom-in; box-shadow: var(--shadow);
+}
+figure img { display: block; width: 100%; height: auto; max-width: 100%; }
+figure.crop button { aspect-ratio: 4 / 3; }
+figure.crop img { height: 100%; object-fit: cover; }
+figcaption { font-size: .78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+/* table */
+.tbl-wrap { overflow-x: auto; margin: 6px 0 12px; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 520px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--f-mono); font-weight: 700; font-size: .74rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+td.when { font-family: var(--f-mono); font-size: .8rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.toggles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.sub { display: block; font-size: .78em; font-weight: 600; color: var(--muted); margin-top: 4px; }
+:root[lang="zh-Hant"] body { line-height: 1.75; }
+.theme-btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px;
+  border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); color: var(--muted);
+  font: 700 .82rem var(--f-body); cursor: pointer; white-space: nowrap;
+}
+.theme-btn:hover { color: var(--ink); border-color: var(--signal); }
+.theme-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.theme-btn .moon { display: none; }
+.is-dark .theme-btn .sun { display: none; }
+.is-dark .theme-btn .moon { display: inline; }
+
+.note { font-size: .82rem; color: var(--muted); font-style: italic; }
+.paper-actions { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 12px; }
+.btn.small { padding: 6px 14px; font-size: .84rem; }
+details.abstract { margin-top: 12px; max-width: 68ch; }
+details.abstract summary { cursor: pointer; color: var(--signal); font-weight: 700; font-size: .9rem; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+details.abstract summary::-webkit-details-marker { display: none; }
+details.abstract summary::before { content: "+"; display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid currentColor; font-size: .8rem; line-height: 1; }
+details.abstract[open] summary::before { content: "\2212"; }
+details.abstract p { margin: 10px 0 0; padding: 12px 16px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); font-size: .92rem; color: var(--ink); }
+footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+
+/* lightbox */
+dialog { border: 0; padding: 0; background: transparent; max-width: min(92vw, 1100px); max-height: 92vh; }
+dialog::backdrop { background: rgba(10,16,20,.82); }
+dialog img { display: block; max-width: min(92vw, 1100px); max-height: 84vh; width: auto; height: auto; border-radius: 4px; background: #fff; }
+dialog p { color: #E4EBEE; font-size: .85rem; margin: 8px 2px 0; display: flex; justify-content: space-between; gap: 16px; }
+dialog button { background: none; border: 1px solid #5A6872; color: #E4EBEE; border-radius: 4px; padding: 2px 10px; cursor: pointer; font: inherit; }
+
+@media (max-width: 880px) {
+  .shell { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .index {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; padding-block: 10px;
+    background: var(--bg); border-bottom: 1px solid var(--rule);
+    margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+    margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  .index .who { display: none; }
+  .index { display: flex; align-items: center; gap: 12px; }
+  .index ol { margin: 0; display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+  .toggles { margin-top: 0; flex-wrap: nowrap; gap: 6px; }
+  .theme-btn { padding: 5px 10px; }
+  .theme-btn .label { display: none; }
+  .index a { display: inline-flex; gap: 6px; white-space: nowrap; font-size: .85rem; }
+  .index a b { padding-top: 1px; }
+  main { padding-top: 28px; }
+  .entry { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .entry .figs:not(.row) { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .readout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .readout > div:nth-child(3) { border-left: 0; }
+  .readout > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <nav class="index" aria-label="Sections">
+    <div class="who" data-i18n="t7">Chin-Yu Wu<span>NCCU · Computer Science</span></div>
+    <ol>
+      <li><a href="#research" data-i18n="t1"><b>01</b>Research</a></li>
+      <li><a href="#awards" data-i18n="t2"><b>02</b>Grants &amp; awards</a></li>
+      <li><a href="#projects" data-i18n="t3"><b>03</b data-i18n="t56">Projects</a></li>
+      <li><a href="#exchange" data-i18n="t4"><b>04</b>Exchange</a></li>
+      <li><a href="#industry" data-i18n="t5"><b>05</b>Industry</a></li>
+      <li><a href="#leadership" data-i18n="t6"><b>06</b>Leadership</a></li>
+    </ol>
+    <div class="toggles">
+    <button type="button" class="theme-btn" id="lang-toggle" aria-label="切換為中文" lang="zh-Hant">中文</button>
+    <button type="button" class="theme-btn" id="theme-toggle" aria-label="Switch to dark theme">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      <span class="label">Dark mode</span>
+    </button>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="id-row">
+        <img class="headshot" src="images/00_headshot.jpg" alt="Portrait of Chin-Yu Wu" width="320" height="320">
+        <div class="id-text">
+        <div class="mono kicker" data-i18n="t8">B.S. Computer Science · National Chengchi University · Taipei, Taiwan</div>
+        <h1 data-i18n="h1">Chin-Yu Wu</h1>
+        </div>
+      </div>
+      <p class="lede" data-i18n="t9">I study how Industrial IoT edge networks can decide, in milliseconds, <em>where factory data goes and which server processes it</em>. I use deep reinforcement learning for that decision, and I spend the rest of my week building CAD automation that manufacturers use every day.</p>
+      <div class="actions">
+        <a class="btn primary" href="Resume_ChinYuWu.pdf" target="_blank" rel="noopener" data-i18n="t10">Resume (PDF)</a>
+        <a class="btn" href="https://github.com/IvyWu0818" target="_blank" rel="noopener">GitHub</a>
+        <span class="email">Email <code id="email">ivy940409@gmail.com</code><button type="button" id="copy-email">Copy</button></span>
+      </div>
+      <div class="readout" role="list">
+        <div role="listitem"><div class="v">4.17<small> / 4.30</small></div><div class="k" data-i18n="t11">GPA · rank 8 of 56 (top 14%)</div></div>
+        <div role="listitem"><div class="v" data-i18n="t12">4<small> papers</small></div><div class="k" data-i18n="t13">1 journal under review · 3 conference</div></div>
+        <div role="listitem"><div class="v">−48.5%</div><div class="k" data-i18n="t14">best end-to-end latency cut vs. baselines</div></div>
+        <div role="listitem"><div class="v">5.5<small> / 6</small></div><div class="k" data-i18n="t15">TOEFL iBT (comparable to 110 / 120)</div></div>
+      </div>
+    </header>
+
+    <!-- 01 Research -->
+    <section id="research">
+      <div class="sec-head"><span class="n">01</span><h2 data-i18n="t16">Research and publications</h2></div>
+      <p style="margin:0 0 18px;max-width:68ch;color:var(--muted)" data-i18n="t17">Lab of Prof. Shi-Sheng Sun, National Chengchi University, since July 2025. My work models a factory's data pipeline as a service function chain running over a NOMA wireless uplink and mobile edge computing (MEC) servers.</p>
+      <figure style="margin:0 0 8px"><button type="button" data-full="images/19_NOMA_MEC_SFC_architecture.jpg" data-cap="System model of my orchestrator: IIoT devices share NOMA subchannels to reach an edge gateway, which routes tasks through a service function chain on MEC servers; a DRL manager monitors channel, queue, and deadline state and makes the joint decisions with SAC." data-cap-zh="我的編排系統模型：IIoT 裝置透過 NOMA 子通道連到邊緣閘道器，任務經由 MEC 伺服器上的服務功能鏈處理；DRL 管理器監測通道、佇列與截止時間狀態，以 SAC 做聯合決策。"><img src="images/19_NOMA_MEC_SFC_architecture.jpg" alt="NOMA-MEC-SFC system architecture diagram" loading="lazy" style="background:#fff"></button><figcaption data-i18n="t18">System model of my orchestrator: IIoT devices share NOMA subchannels to reach an edge gateway, which routes tasks through a service function chain on MEC servers; a DRL manager monitors channel, queue, and deadline state and makes the joint decisions with SAC.</figcaption></figure>
+
+      <article class="entry">
+        <div>
+          <h3>Deep Reinforcement Learning for Deadline-Aware Service Function Chain Orchestration in NOMA-MEC-Enabled IIoT</h3>
+          <div class="meta"><span><span class="me">Chin-Yu Wu</span>, Jia-Rong Lin, Ping-Chih Liu, Shi-Sheng Sun</span></div>
+          <div class="meta"><span class="tag">IEEE Internet of Things Journal</span><span class="tag plain" data-i18n="t19">under review</span><span class="tag plain" data-i18n="t20">first author</span></div>
+          <p data-i18n="t21">A Soft Actor-Critic orchestrator that jointly decides subchannel assignment, task offloading, edge computing allocation, and VNF placement. I recast the NP-hard mixed-integer problem as a Markov decision process and built a six-term reward so the agent cannot cut latency by overloading servers.</p>
+          <span class="result" data-i18n="t22">100 devices · 3 MEC servers · latency <b>−4.2% to −48.5%</b> vs. TD3, PPO, greedy, GA · <b>0</b> deadline violations</span>
+        </div>
+        <div class="figs">
+          <figure><button type="button" data-full="images/01_IoTJ_paper_first_page.jpg" data-cap="First page of the manuscript (IEEE Internet of Things Journal, under review)" data-cap-zh="投稿論文第一頁（IEEE Internet of Things Journal，審稿中）"><img src="images/01_IoTJ_paper_first_page.jpg" alt="First page of the IoT Journal manuscript" loading="lazy"></button><figcaption data-i18n="t23">First page of the manuscript</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div>
+          <h3>Service Function Chain Scheduling and Congestion Mitigation for the Industrial IoT Edge Networks under Bursty Wireless Uplink Traffic</h3>
+          <div class="meta"><span>Jia-Rong Lin, <span class="me">Chin-Yu Wu</span>, Ping-Chih Liu, Shi-Sheng Sun</span></div>
+          <div class="meta"><span class="tag" data-i18n="t24">IEEE AIoT 2026 · Kobe, Japan</span><span class="tag plain" data-i18n="t25">accepted</span></div>
+          <p data-i18n="t26">When a fault makes many sensors report at once, the burst congests every stage of the chain. A deep reinforcement learning scheduler decides how much traffic each stage releases per time slot, compared against PPO, SAC, TD3, and four conventional schedulers in two industrial scenarios. Extended version of our WASN 2026 Best Paper; I will present it in Kobe.</p>
+          <div class="paper-actions"><a class="btn small" href="papers/AIoT2026_paper.pdf" target="_blank" rel="noopener" data-i18n="t27">Full paper (PDF, 8 pages)</a><span class="note" data-i18n="t28">Submitted version, anonymized for double-blind review. &copy; 2026 IEEE. Personal use of this material is permitted.</span></div>
+        </div>
+        <div class="figs">
+          <figure><button type="button" data-full="images/06_AIoT2026_paper_first_page.jpg" data-cap="First page of the IEEE AIoT 2026 paper (submitted version)" data-cap-zh="IEEE AIoT 2026 論文第一頁（投稿版）"><img src="images/06_AIoT2026_paper_first_page.jpg" alt="First page of the IEEE AIoT 2026 paper" loading="lazy"></button><figcaption data-i18n="t29">First page of the paper</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div>
+          <h3 data-i18n="t30">Congestion-Aware SFC Scheduling for Industrial IoT under Bursty Traffic</h3>
+          <div class="meta"><span>Jia-Rong Lin, <span class="me">Chin-Yu Wu</span>, Ping-Chih Liu, Shi-Sheng Sun</span></div>
+          <div class="meta"><span class="tag">WASN 2026</span><span class="tag award" data-i18n="t31">Best Paper Award</span><span class="tag plain" data-i18n="t32">in Chinese</span></div>
+          <p data-i18n="t33">The first version of the bursty-traffic scheduling study, presented at the joint MC 2026 and WASN 2026 conference, National Chung Hsing University, August 2026. The paper is written in Chinese with an English abstract.</p>
+          <details class="abstract"><summary data-i18n="t34">English abstract</summary><p data-i18n="t124">Industrial Internet of Things (IIoT) applications often generate bursty uplink traffic under event-driven scenarios, causing instantaneous congestion in Service Function Chain (SFC) queues at edge nodes and degrading service latency and Quality of Service (QoS). This paper proposes a Deep Reinforcement Learning (DRL) based dynamic scheduling mechanism for IIoT edge nodes with pre-deployed Virtual Network Functions (VNFs). We construct a two-tier queuing model comprising a global buffer and per-VNF stage queues and characterize bursty arrivals using a two-state compound Poisson process. The scheduling problem is formulated as a Markov Decision Process (MDP) and solved by the Proximal Policy Optimization (PPO) algorithm, which outputs the release amount of each VNF. Simulation results show that the proposed method effectively reduces queuing delay and QoS violation rate under bursty traffic.</p></details>
+          <div class="paper-actions"><a class="btn small" href="papers/WASN2026_full_paper.pdf" target="_blank" rel="noopener" data-i18n="t35">Full paper (PDF, 8 pages, in Chinese)</a></div>
+        </div>
+        <div class="figs">
+          <figure class="crop"><button type="button" data-full="images/04_WASN2026_best_paper_award.jpg" data-cap="Receiving the WASN 2026 Best Paper Award" data-cap-zh="WASN 2026 最佳論文頒獎"><img src="images/04_WASN2026_best_paper_award.jpg" alt="Award ceremony photo" loading="lazy"></button><figcaption data-i18n="t36">Receiving the award</figcaption></figure>
+          <figure><button type="button" data-full="images/05_WASN2026_certificate.jpg" data-cap="Best Paper Award certificate (in Chinese)" data-cap-zh="最佳論文獎狀"><img src="images/05_WASN2026_certificate.jpg" alt="Best Paper Award certificate" loading="lazy"></button><figcaption data-i18n="t37">Best Paper Award certificate</figcaption></figure>
+          <figure><button type="button" data-full="images/05b_WASN2026_presentation_certificate.jpg" data-cap="Certificate of presentation, WASN 2026 (in Chinese)" data-cap-zh="WASN 2026 發表證明"><img src="images/05b_WASN2026_presentation_certificate.jpg" alt="Certificate of presentation, WASN 2026" loading="lazy"></button><figcaption data-i18n="t38">Certificate of presentation</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div>
+          <h3 data-i18n="t39">Deep Reinforcement Learning for End-to-End Latency Optimization in NOMA&ndash;MEC-Enabled IIoT</h3>
+          <div class="meta"><span><span class="me">Chin-Yu Wu</span>, Jia-Rong Lin, Ping-Chih Liu, Shi-Sheng Sun</span></div>
+          <div class="meta"><span class="tag">MC 2026</span><span class="tag plain" data-i18n="t40">poster</span><span class="tag plain" data-i18n="t20">first author</span><span class="tag plain" data-i18n="t32">in Chinese</span></div>
+          <p data-i18n="t41">The first version of the IoT Journal work, using a TD3 agent, which I presented as a poster in August 2026. The paper is written in Chinese with an English abstract.</p>
+          <details class="abstract"><summary data-i18n="t34">English abstract</summary><p data-i18n="t125">In Industrial Internet of Things (IIoT) environments, multi-stage real-time services such as preprocessing, anomaly detection, model inference, and feedback control form workflow-style processing chains. Insufficient resources at any stage can cause queuing effects to accumulate along the chain, increasing end-to-end (E2E) latency and the risk of task timeouts, jointly affected by access-layer and edge-computing congestion. This paper models the multi-stage processing flow as a Service Function Chain (SFC) under a Non-Orthogonal Multiple Access (NOMA) wireless transmission environment, where the power allocation and Successive Interference Cancellation (SIC) decoding order follow fixed rules and subchannel assignment serves as the only NOMA-related decision variable, and focuses on system-level joint decisions: subchannel assignment, task offloading, edge-computing resource scheduling, and Virtual Network Function (VNF) placement. Since the joint optimization constitutes a Mixed-Integer Nonlinear Programming (MINLP) problem and is NP-hard, we employ the Twin Delayed Deep Deterministic policy gradient (TD3) deep reinforcement learning to design an online decision-making mechanism, with greedy and genetic algorithms as baselines. Simulation results validate that the proposed method outperforms the baselines in both E2E latency and resource efficiency.</p></details>
+          <div class="paper-actions"><a class="btn small" href="papers/MC2026_full_paper.pdf" target="_blank" rel="noopener" data-i18n="t35">Full paper (PDF, 8 pages, in Chinese)</a><a class="btn small" href="papers/MC2026_poster.pdf" target="_blank" rel="noopener" data-i18n="t42">Poster (PDF)</a></div>
+          <figure style="max-width:460px;margin-top:14px"><button type="button" data-full="images/20_MC2026_delay_comparison.jpg" data-cap="Average end-to-end delay: TD3 6.452 ms, greedy 9.599 ms, genetic algorithm 7.271 ms (MC 2026)" data-cap-zh="平均端到端延遲：TD3 6.452 ms、貪婪法 9.599 ms、遺傳演算法 7.271 ms（MC 2026）"><img src="images/20_MC2026_delay_comparison.jpg" alt="Bar chart of end-to-end delay for TD3, greedy, and GA" loading="lazy" style="background:#fff"></button><figcaption data-i18n="t43">End-to-end delay: TD3 6.45 ms vs. greedy 9.60 ms and GA 7.27 ms</figcaption></figure>
+        </div>
+        <div class="figs">
+          <figure><button type="button" data-full="images/21_MC2026_poster.jpg" data-cap="The MC 2026 poster (in Chinese)" data-cap-zh="MC 2026 海報"><img src="images/21_MC2026_poster.jpg" alt="MC 2026 poster" loading="lazy"></button><figcaption data-i18n="t44">The poster (in Chinese)</figcaption></figure>
+          <figure><button type="button" data-full="images/02_MC2026_poster.jpg" data-cap="Presenting the poster at MC 2026" data-cap-zh="MC 2026 海報發表"><img src="images/02_MC2026_poster.jpg" alt="Chin-Yu Wu presenting her poster" loading="lazy"></button><figcaption data-i18n="t45">Presenting the poster</figcaption></figure>
+          <figure><button type="button" data-full="images/03_MC2026_certificate.jpg" data-cap="Certificate of presentation, MC 2026 (in Chinese)" data-cap-zh="MC 2026 發表證明"><img src="images/03_MC2026_certificate.jpg" alt="Certificate of presentation" loading="lazy"></button><figcaption data-i18n="t38">Certificate of presentation</figcaption></figure>
+        </div>
+      </article>
+    </section>
+
+    <!-- 02 Awards -->
+    <section id="awards">
+      <div class="sec-head"><span class="n">02</span><h2 data-i18n="t46">Grants and awards</h2></div>
+
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t47">NSTC Undergraduate Research Grant</h3>
+          <div class="meta"><span class="tag">115-2813-C-004-072-E</span><span class="tag plain">07/2026 – 02/2027</span></div>
+          <p data-i18n="t48">Awarded by the National Science and Technology Council, Taiwan, for <i>End-to-End Latency Minimization for Industrial IoT: Joint SFC Deployment over NOMA Wireless Networks and MEC</i> (title translated). Advisor: Prof. Shi-Sheng Sun.</p>
+          <div class="paper-actions"><a class="btn small" href="https://wsts.nstc.gov.tw/STSWeb/Award/AwardMultiQuery.aspx" target="_blank" rel="noopener" data-i18n="t_nstc_btn">NSTC public award database</a><span class="note" data-i18n="t_nstc_note">Search for grant no. 115-2813-C-004-072-E</span></div>
+          <figure style="max-width:900px;margin-top:12px"><button type="button" data-full="images/07_NSTC_grant_record.png" data-cap="Public grant record in the NSTC award database (in Chinese)" data-cap-zh="國科會大專生研究計畫公開查詢紀錄"><img src="images/07_NSTC_grant_record.png" alt="NSTC grant record" loading="lazy"></button><figcaption data-i18n="t49">Grant record in the NSTC system (in Chinese)</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div>
+          <h3 data-i18n="t50">Grand Prize, 2026 Agentic AI Competition</h3>
+          <div class="meta"><span class="tag award" data-i18n="t51">Grand Prize</span><span class="tag plain" data-i18n="t52">Dept. of Computer Science, NCCU</span><span class="tag plain" data-i18n="t53">team of three</span></div>
+          <p data-i18n="t54">For the AI Chess Live Commentary Agent, described under Projects.</p>
+        </div>
+        <div class="figs">
+          <figure><button type="button" data-full="images/08_Agentic_AI_Grand_Prize.jpg" data-cap="Grand Prize certificate, 2026 Agentic AI Competition" data-cap-zh="2026 Agentic AI 競賽特優獎狀"><img src="images/08_Agentic_AI_Grand_Prize.jpg" alt="Grand Prize certificate" loading="lazy"></button><figcaption data-i18n="t55">Grand Prize certificate</figcaption></figure>
+        </div>
+      </article>
+    </section>
+
+    <!-- 03 Projects -->
+    <section id="projects">
+      <div class="sec-head"><span class="n">03</span><h2 data-i18n="t56">Projects</h2></div>
+
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t57">AI Chess Live Commentary Agent</h3>
+          <div class="meta"><span class="tag award" data-i18n="t51">Grand Prize</span><span class="tag plain" data-i18n="t53">team of three</span><span class="tag plain wrap">LangGraph · Stockfish · python-chess · GPT-4o · TTS · ChromaDB · FastAPI</span></div>
+          <p data-i18n="t58">A real-time chess broadcaster built as a LangGraph pipeline. python-chess tracks the board and Stockfish scores every move; a Director agent turns the change in evaluation into a severity level (routine, notable, or critical) that sets how deep the analysis goes and the commentators' tone.</p>
+          <ul>
+            <li data-i18n="t59"><b>The game never waits.</b> Each move returns to play in about 0.07 s; a separate worker thread drains a job queue and, based on backlog and severity, cuts in on critical moments, queues notable ones, and stays silent on routine moves.</li>
+            <li data-i18n="t60"><b>Two hosts, one script.</b> One LLM call writes an alternating two-host dialogue, which is then voiced sentence by sentence with text-to-speech.</li>
+            <li data-i18n="t61"><b>Grounded commentary.</b> The hosts may only repeat facts from an engine-built facts packet, so they cannot invent evaluations; layered memory keeps the story of the game, and ablation tests compared variants.</li>
+          </ul>
+          <div class="paper-actions"><a class="btn small primary" href="https://canva.link/mlvzsws8w58vyg6" target="_blank" rel="noopener" data-i18n="t62">Watch the demo</a><a class="btn small" href="papers/AI_Chess_Agent_slides.pdf" target="_blank" rel="noopener" data-i18n="t63">Slides (PDF, in Chinese)</a><a class="btn small" href="https://github.com/hcaJL/Agentic-ai" target="_blank" rel="noopener" data-i18n="t64">Repository</a></div>
+          <div class="figs row">
+            <figure><button type="button" data-full="images/18_AI_Chess_demo.jpg" data-cap="The live broadcast interface: board in the center, commentary feed on the right" data-cap-zh="即時播報介面：中間為棋盤，右側為播報內容"><img src="images/18_AI_Chess_demo.jpg" alt="Screenshot of the chess broadcast interface" loading="lazy"></button><figcaption data-i18n="t65">The live broadcast interface</figcaption></figure>
+            <figure><button type="button" data-full="images/17_AI_Chess_system_model.jpg" data-cap="System model: game timeline, job queue, broadcast worker, and LangGraph pipeline (in Chinese)" data-cap-zh="系統架構：棋局時間軸、工作佇列、播報 Worker 與 LangGraph 管線"><img src="images/17_AI_Chess_system_model.jpg" alt="System model diagram of the chess agent" loading="lazy"></button><figcaption data-i18n="t66">System model (in Chinese)</figcaption></figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t67">Graduate Degree Audit System</h3>
+          <div class="meta"><span class="tag" data-i18n="t68">Backend</span><span class="tag plain">Python · SQLAlchemy · PostgreSQL · Docker Compose</span><a href="https://github.com/tingyun1015/Graduate_Degree_Audit_System" target="_blank" rel="noopener" data-i18n="t64">Repository</a></div>
+          <p data-i18n="t69">A team web system that checks whether a student has met every graduation requirement. I built the backend: the data model for students, degree programs, courses, requirement rules, and course records, and the API that the React and TypeScript frontend calls to show each student's progress.</p>
+        </div>
+      </article>
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t_ns_h">NoSquad</h3>
+          <div class="meta"><span class="tag" data-i18n="t_ns_role">Full-stack contributor</span><span class="tag plain" data-i18n="t_ns_course">Software Engineering course, NCCU, Spring 2026</span><span class="tag plain wrap">Next.js · React · Bun · Hono · TypeScript · MySQL · Redis · Docker</span><a href="https://github.com/SoftPotato-NCCU/NoSquad" target="_blank" rel="noopener" data-i18n="t_ns_repo">Repository</a></div>
+          <p data-i18n="t_ns_p">A web app for finding people to join an activity, built by a student team. Users open a &ldquo;room&rdquo; for a game, a study session, or an outing with a time, place, and headcount; others browse and join, with optional host approval, push notifications, and passkey sign-in.</p>
+          <ul>
+            <li data-i18n="t_ns_li1"><b>Credit score system, end to end.</b> I designed and built it across the database, backend API, and frontend: after an activity, hosts and members rate each other on attendance and behavior (late, no-show, leaving early, and so on), and each user's score appears on their profile so hosts can see who shows up.</li>
+            <li data-i18n="t_ns_li2"><b>Room logic in the backend.</b> I added time-based room status, activity categories with validation, member approval status, and the tests that cover them.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- 04 Exchange -->
+    <section id="exchange">
+      <div class="sec-head"><span class="n">04</span><h2 data-i18n="t70">International exchange</h2></div>
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t71">Research visit, Osaka Metropolitan University, Japan</h3>
+          <div class="meta"><span class="tag plain" data-i18n="t72">August 10–14, 2026</span><span class="tag plain">NCCU Global Top 1000 Research Team Program</span></div>
+          <p data-i18n="t73">With Prof. Sun and our lab, I visited the Smart Information and Communications Lab, Department of Electrical and Electronic Systems Engineering. I presented our NOMA-MEC latency research in English and answered questions from students and faculty, which taught me to explain the motivation, model, and results to listeners from a different background.</p>
+          <div class="paper-actions"><a class="btn small" href="papers/Osaka2026_talk_slides.pdf" target="_blank" rel="noopener" data-i18n="t74">Talk slides (PDF, 28 slides, English)</a></div>
+          <div class="figs row">
+            <figure class="crop"><button type="button" data-full="images/09_Osaka_group_photo.jpg" data-cap="With the host lab at Osaka Metropolitan University" data-cap-zh="與大阪公立大學接待實驗室合影"><img src="images/09_Osaka_group_photo.jpg" alt="Group photo with the host lab" loading="lazy"></button><figcaption data-i18n="t75">With the host lab</figcaption></figure>
+            <figure class="crop"><button type="button" data-full="images/10_Osaka_session.jpg" data-cap="Lab exchange session" data-cap-zh="實驗室交流"><img src="images/10_Osaka_session.jpg" alt="Lab exchange session" loading="lazy"></button><figcaption data-i18n="t76">Lab exchange session</figcaption></figure>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 05 Industry -->
+    <section id="industry">
+      <div class="sec-head"><span class="n">05</span><h2 data-i18n="t77">Industry experience</h2></div>
+
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t78">CAD automation, Xiang-Hong Information Consulting Co., Ltd.</h3>
+          <div class="meta"><span class="tag plain" data-i18n="t79">06/2024 – present</span><span class="tag plain" data-i18n="t80">part-time</span><span class="tag plain">AutoCAD · AutoLISP</span></div>
+          <p data-i18n="t81">My clients' engineers produce their drawings in AutoCAD by hand, repeating the same steps over and over and spending a great deal of time on every set. I watch how they draw, find the patterns and steps that can be standardized, and turn them into a program: an engineer clicks a button, enters the parameters, and every drawing or document is generated in seconds. Each tool is delivered through weekly demos and acceptance testing. I started as a developer, took on system analysis for the CMAT project, and became project manager for the Lite-On project in June 2026.</p>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th data-i18n="t82">Client</th><th data-i18n="t83">Project</th><th data-i18n="t84">Period</th><th data-i18n="t85">Role</th></tr></thead>
+              <tbody>
+                <tr><td data-i18n="t86">Lite-On Technology<br><span class="note">a Dell supplier</span></td><td data-i18n="t87">Dell PPAP CAD automation: generates the Production Part Approval Process documents Dell requires, directly from CAD drawings</td><td class="when" data-i18n="t88">06/2026 – now</td><td data-i18n="t89">Project manager, system analyst, developer</td></tr>
+                <tr><td data-i18n="t90">CMAT<br><span class="note">semiconductor test equipment</span></td><td data-i18n="t91">Automated parametric drawing system</td><td class="when" data-i18n="t92">12/2025 – 06/2026</td><td data-i18n="t_cmat_role">System analyst, developer</td></tr>
+                <tr><td>Apex Material Technology</td><td data-i18n="t93">PCI layout and panelization drawing system: 21 reusable modules, tested by about 200–300 users</td><td class="when" data-i18n="t94">06/2024 – 11/2025</td><td data-i18n="t95">Developer</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note" data-i18n="t96">Screenshots are omitted under client confidentiality.</p>
+        </div>
+      </article>
+
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t97">Team lead, Taipei International Convention Center re-survey</h3>
+          <div class="meta"><span class="tag plain" data-i18n="t98">07/2025 – 12/2025</span><span class="tag plain" data-i18n="t99">4-person team</span><span class="tag plain" data-i18n="t100">82 floor plans</span></div>
+          <p data-i18n="t101">After a renovation, our team re-measured the center's interior spaces on weekends and drafted and cross-checked the plans on weekdays. Event organizers plan their venues from these drawings, so every plan had to match the site and follow one annotation format. I split the work, kept interdependent drawings in sync, and decided when a discrepancy required another site visit. The plans are now published on the center's website.</p>
+          <div class="paper-actions"><a class="btn small" href="https://www.ticc.com.tw/wSite/lp?ctNode=336&amp;CtUnit=110&amp;BaseDSD=7&amp;mp=1" target="_blank" rel="noopener" data-i18n="t102">See the 82 plans on the TICC website</a><span class="note" data-i18n="t103">Listed under &ldquo;會議室丈量圖 (82)&rdquo;</span></div>
+          <div class="figs row">
+            <figure class="crop"><button type="button" data-full="images/11_TICC_floor_plan.png" data-cap="Sample floor plan, Meeting Room 202" data-cap-zh="平面圖範例：202 會議室"><img src="images/11_TICC_floor_plan.png" alt="Sample floor plan" loading="lazy"></button><figcaption data-i18n="t104">Sample floor plan</figcaption></figure>
+            <figure class="crop"><button type="button" data-full="images/12_TICC_team.jpg" data-cap="Our team on site" data-cap-zh="團隊現場合影"><img src="images/12_TICC_team.jpg" alt="The team on site" loading="lazy"></button><figcaption data-i18n="t105">Our team on site</figcaption></figure>
+            <figure><button type="button" data-full="images/13_TICC_website.png" data-cap="The floor plans on the center's website" data-cap-zh="會議中心官網上的平面圖"><img src="images/13_TICC_website.png" alt="Floor plans on the center's website" loading="lazy"></button><figcaption data-i18n="t106">Published on the center's website</figcaption></figure>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 06 Leadership -->
+    <section id="leadership">
+      <div class="sec-head"><span class="n">06</span><h2 data-i18n="t107">Leadership and teaching</h2></div>
+
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t108">Team leader, NTUT Rubik's Cube Coaching Team</h3>
+          <div class="meta"><span class="tag plain" data-i18n="t109">2023 – present</span><span class="tag plain" data-i18n="t110">56 coaches</span><a href="https://sites.google.com/haps.tp.edu.tw/cube/" target="_blank" rel="noopener" data-i18n="t111">Official competition site</a></div>
+          <ul>
+            <li data-i18n="t112">Since 2023, lead NTUT's co-organizing team for the annual Taipei City Rubik's Cube Competition for elementary and junior high schools, hosted by the Taipei City Department of Education: about 500 competitors per year, with the fourth edition on December 13, 2026. I split coaches into scrambling, judging, and scoring groups and handle problems on the day.</li>
+            <li data-i18n="t113">Co-produced the official rules video for competitors.</li>
+            <li data-i18n="t114">Lead new-member training every spring at NTUT's Department of Industrial Design (about 30 new students each time) and recruit new coaches.</li>
+            <li data-i18n="t115">Directed and taught eight Rubik's cube winter and summer camps.</li>
+          </ul>
+          <div class="figs row">
+            <figure class="crop"><button type="button" data-full="images/14_Cube_competition_rules_video.jpg" data-cap="The rules video on the official competition site" data-cap-zh="比賽官網上的注意事項影片"><img src="images/14_Cube_competition_rules_video.jpg" alt="Rules video on the competition website" loading="lazy"></button><figcaption data-i18n="t116">Rules video on the official site</figcaption></figure>
+            <figure><button type="button" data-full="images/15_Taipei_Education_Dept_letters.jpg" data-cap="Letters of appreciation from the Taipei City Department of Education, 2023–2025 (in Chinese)" data-cap-zh="臺北市教育局感謝狀（2023–2025）"><img src="images/15_Taipei_Education_Dept_letters.jpg" alt="Letters of appreciation from the Taipei City Department of Education" loading="lazy"></button><figcaption data-i18n="t117">Letters from the Taipei City Dept. of Education, 2023–2025</figcaption></figure>
+            <figure><button type="button" data-full="images/16_NTUT_training_letters.jpg" data-cap="Letters of appreciation from NTUT for new-member training (in Chinese)" data-cap-zh="北科大新生培訓感謝狀"><img src="images/16_NTUT_training_letters.jpg" alt="Letters of appreciation from NTUT" loading="lazy"></button><figcaption data-i18n="t118">Letters from NTUT for training</figcaption></figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry wide-figs">
+        <div>
+          <h3 data-i18n="t119">Teaching assistant, Operating System</h3>
+          <div class="meta"><span class="tag plain" data-i18n="t120">Fall 2026</span><span class="tag plain" data-i18n="t121">required course, 3 credits</span></div>
+          <p data-i18n="t122">Teaching assistant for Prof. Shi-Sheng Sun's Operating System course in the Department of Computer Science, NCCU: I help with course work and hold TA hours for students.</p>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <span>Chin-Yu Wu · ivy940409@gmail.com</span>
+      <span class="mono" data-i18n="t123">Last updated November 2026</span>
+    </footer>
+  </main>
+</div>
+
+<dialog id="lightbox" aria-label="Image viewer">
+  <img id="lb-img" alt="">
+  <p><span id="lb-cap"></span><button type="button" id="lb-close">Close / 關閉</button></p>
+</dialog>
+
+<script>
+(function () {
+  // theme toggle: explicit choice wins over the system setting and is remembered
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var label = btn.querySelector('.label');
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return !!(mq && mq.matches);
+  }
+  function sync() {
+    var d = isDark();
+    root.classList.toggle('is-dark', d);
+    var zh = root.getAttribute('data-lang') === 'zh';
+    label.textContent = zh ? (d ? '淺色模式' : '深色模式') : (d ? 'Light mode' : 'Dark mode');
+    btn.setAttribute('aria-label', d ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  try { var saved = localStorage.getItem('cyw-theme'); if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved); } catch (e) {}
+  sync();
+  if (mq && mq.addEventListener) mq.addEventListener('change', sync);
+  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('cyw-theme', next); } catch (e) {}
+  });
+
+  // language toggle: English is the page's own text; Chinese comes from ZH
+  var ZH = {"t_ns_h": "NoSquad<span class=\"sub\">揪團活動平台</span>", "t_ns_role": "全端開發", "t_ns_course": "政大軟體工程課程，2026 春季", "t_ns_repo": "GitHub 原始碼", "t_ns_p": "學生團隊開發的揪團網站。使用者為球賽、讀書會或出遊開一個「房間」，設定時間、地點與人數；其他人瀏覽後加入，可設定由團主審核，並支援推播通知與通行金鑰（passkey）登入。", "t_ns_li1": "<b>信用分數系統（從頭到尾）。</b>我負責資料庫、後端 API 到前端介面的完整實作：活動結束後，團主與成員依出席與行為互相評價（遲到、爽約、提早離場等），每位使用者的分數顯示在個人頁面，讓團主知道誰會準時出現。", "t_ns_li2": "<b>後端房間邏輯。</b>我實作依時間變化的房間狀態、活動分類與驗證、成員審核狀態，以及對應的測試。", "t_nstc_btn": "國科會大專生研究計畫查詢", "t_nstc_note": "以計畫編號 115-2813-C-004-072-E 查詢", "t_cmat_role": "系統分析、程式開發", "t1": "<b>01</b>研究", "t2": "<b>02</b>計畫與獎項", "t3": "<b>03</b>專案", "t4": "<b>04</b>國際交流", "t5": "<b>05</b>業界經驗", "t6": "<b>06</b>領導與教學", "t7": "吳沁宇<span>政治大學 資訊科學系</span>", "t8": "國立政治大學 資訊科學系 · 台灣台北", "t9": "我研究工業物聯網的邊緣網路如何在毫秒之內決定<em>工廠資料要往哪裡送、由哪一台伺服器處理</em>。我用深度強化學習做這個決策；其餘時間，我替製造業開發每天都在使用的 CAD 自動化工具。", "t10": "履歷（PDF，英文）", "t11": "GPA · 系排 8／56（前 14%）", "t12": "4<small> 篇論文</small>", "t13": "1 篇期刊審稿中 · 3 篇研討會論文", "t14": "相較基準方法，端到端延遲最多降低", "t15": "TOEFL iBT（相當於舊制 110／120）", "t16": "研究與論文", "t17": "2025 年 7 月起於政大資科系孫士勝教授實驗室進行研究。我把工廠的資料處理流程建模為服務功能鏈（SFC），運行在 NOMA 無線上行鏈路與行動邊緣運算（MEC）伺服器之上。", "t18": "我的編排系統模型：IIoT 裝置透過 NOMA 子通道連到邊緣閘道器，任務經由 MEC 伺服器上的服務功能鏈處理；DRL 管理器監測通道、佇列與截止時間狀態，以 SAC 做聯合決策。", "t19": "審稿中", "t20": "第一作者", "t21": "以 Soft Actor-Critic（SAC）建構編排器，聯合決定子通道配置、任務卸載、邊緣算力分配與 VNF 放置。我將 NP-hard 的混合整數問題轉為馬可夫決策過程，並設計六項獎勵，避免代理人靠讓伺服器過載來壓低延遲。", "t22": "100 個裝置 · 3 台 MEC 伺服器 · 延遲較 TD3、PPO、貪婪法、GA 降低 <b>4.2%–48.5%</b> · 逾時 <b>0</b> 次", "t23": "投稿論文第一頁", "t24": "IEEE AIoT 2026 · 日本神戶", "t25": "已接受", "t26": "當故障讓大量感測器同時回報，突發流量會塞滿服務鏈的每一個階段。我們以深度強化學習排程器決定每個時槽各階段放行多少流量，並在兩種工業情境下與 PPO、SAC、TD3 及四種傳統排程法比較。本篇為 WASN 2026 最佳論文的英文延伸版，我將於神戶發表。", "t27": "全文（PDF，8 頁）", "t28": "投稿版本（雙盲審稿，未列作者）。&copy; 2026 IEEE，僅供個人使用。", "t29": "論文第一頁", "t30": "突發流量下的工業物聯網服務功能鏈壅塞感知排程<span class=\"sub\">Congestion-Aware SFC Scheduling for Industrial IoT under Bursty Traffic</span>", "t31": "最佳論文獎", "t32": "中文論文", "t33": "突發流量排程研究的第一版，於 2026 年 8 月在中興大學舉辦的 MC 2026 暨 WASN 2026 研討會發表。", "t34": "摘要", "t35": "全文（PDF，8 頁）", "t36": "頒獎典禮", "t37": "最佳論文獎狀", "t38": "發表證明", "t39": "基於深度強化學習之工業物聯網 NOMA&ndash;MEC 端到端延遲最佳化<span class=\"sub\">Deep Reinforcement Learning for End-to-End Latency Optimization in NOMA&ndash;MEC-Enabled IIoT</span>", "t40": "海報發表", "t41": "IoT Journal 研究的第一版，使用 TD3 代理人，2026 年 8 月以海報發表。", "t42": "海報（PDF）", "t43": "端到端延遲：TD3 6.45 ms，貪婪法 9.60 ms，GA 7.27 ms", "t44": "海報", "t45": "海報發表現場", "t46": "計畫與獎項", "t47": "國科會大專學生研究計畫", "t48": "計畫名稱：<i>工業物聯網之端到端延遲最小化：基於 NOMA 無線網路與 MEC 之 SFC 聯合部署決策</i>。指導教授：孫士勝。", "t49": "國科會系統核定紀錄", "t50": "2026 Agentic AI 競賽 特優（Grand Prize）", "t51": "特優", "t52": "政大資訊科學系", "t53": "三人團隊", "t54": "作品為 AI 西洋棋即時主播，詳見「專案」。", "t55": "特優獎狀", "t56": "專案", "t57": "AI 西洋棋即時主播<span class=\"sub\">AI Chess Live Commentary Agent</span>", "t58": "以 LangGraph 管線打造的即時西洋棋播報系統。python-chess 追蹤盤面、Stockfish 評估每一手；Director 代理人依評估變化判斷事件嚴重度（routine、notable、critical），決定分析深度與主播語氣。", "t59": "<b>棋局永不等待。</b>每一手約 0.07 秒就回到棋局；另一條 Worker 執行緒處理工作佇列，依積壓量與嚴重度決定：critical 立即插話、notable 排隊、routine 保持靜默。", "t60": "<b>雙主播對話。</b>一次 LLM 呼叫寫出兩位主播交替的完整劇本，再逐句以語音合成配音。", "t61": "<b>有根據的播報。</b>主播只能引用引擎產生的事實包（FactsPacket），不能捏造評估數字；分層記憶保留整局脈絡，並以消融實驗比較不同版本。", "t62": "觀看展示影片", "t63": "簡報（PDF）", "t64": "GitHub 原始碼", "t65": "即時播報介面", "t66": "系統架構圖", "t67": "畢業學分檢核系統<span class=\"sub\">Graduate Degree Audit System</span>", "t68": "負責後端", "t69": "團隊開發的網頁系統，檢查學生是否已達成所有畢業條件。我負責後端：設計學生、學程、課程、畢業規則與修課紀錄的資料模型，以及讓 React／TypeScript 前端顯示修課進度的 API。", "t70": "國際交流", "t71": "日本大阪公立大學研究交流", "t72": "2026 年 8 月 10–14 日", "t73": "與孫老師及實驗室成員一同拜訪大阪公立大學的 Smart Information and Communications Lab，以英文報告我們的 NOMA-MEC 延遲研究，並回答學生與教授的提問。這次經驗讓我學會向不同背景的聽眾說明研究動機、模型與結果。", "t74": "英文報告簡報（PDF，28 頁）", "t75": "與接待實驗室合影", "t76": "實驗室交流", "t77": "業界經驗", "t78": "CAD 自動化開發，翔虹資訊顧問有限公司", "t79": "2024/06 – 迄今", "t80": "兼職", "t81": "客戶的工程師用 AutoCAD 手動繪圖，一再重複相同的步驟，每一套圖都要花上很多時間。我觀察他們怎麼畫，找出有規律、可以標準化的地方，寫成自動繪圖程式：按下按鈕、輸入需要的參數，幾秒鐘就能產生所有圖面或文件。每套工具都透過每週展示與驗收測試交付。我從程式開發做起，在景美專案擔任系統分析，2026 年 6 月起在光寶專案擔任專案經理。", "t82": "客戶", "t83": "專案", "t84": "期間", "t85": "職責", "t86": "光寶科技<br><span class=\"note\">Dell 供應商</span>", "t87": "DELL PPAP 自動化 CAD 輔助：直接從 CAD 圖面產生 Dell 要求的 PPAP 文件", "t88": "2026/06 – 迄今", "t89": "專案經理、系統分析、程式開發", "t90": "景美科技<br><span class=\"note\">半導體測試設備</span>", "t91": "CMAT 自動參數繪圖專案", "t92": "2025/12 – 2026/06", "t93": "PCI Layout 與總排版繪圖輔助系統：21 個可重用模組，約 200–300 位使用者測試", "t94": "2024/06 – 2025/11", "t95": "程式開發", "t96": "因客戶保密，不提供系統截圖。", "t97": "台北國際會議中心（TICC）丈量繪圖專案 團隊負責人", "t98": "2025/07 – 2025/12", "t99": "4 人團隊", "t100": "82 張平面圖", "t101": "會議中心整修後，我們團隊週末到現場重新丈量室內空間，平日繪製並交叉核對圖面。活動主辦單位會依這些圖規劃場地，所以每張圖都必須與現場一致，並採用統一的標註格式。我負責分工、同步相互關聯的圖面版本，並判斷哪些差異需要回現場複測。這些圖面現已公開於會議中心官網。", "t102": "到 TICC 官網查看 82 張圖面", "t103": "位於「會議室丈量圖 (82)」分類", "t104": "平面圖範例", "t105": "團隊現場合影", "t106": "公開於會議中心官網", "t107": "領導與教學", "t108": "北科大魔術方塊教練團 隊長", "t109": "2023 – 迄今", "t110": "56 位教練", "t111": "比賽官網", "t112": "2023 年起帶領北科大協辦團隊，支援臺北市教育局主辦的國中小魔術方塊競賽：每年約 500 位選手，第四屆將於 2026 年 12 月 13 日舉行。比賽當天我將教練分為打亂、裁判、計分等組別，並處理現場狀況。", "t113": "與另一位隊長共同製作選手注意事項影片。", "t114": "每年春季在北科大工業設計系帶領新生培訓（每次約 30 位），並招募新教練。", "t115": "擔任八場魔術方塊寒暑假營隊的營主任與講師。", "t116": "比賽官網上的注意事項影片", "t117": "臺北市教育局感謝狀（2023–2025）", "t118": "北科大培訓感謝狀", "t119": "作業系統 課程助教", "t120": "115 學年度第一學期", "t121": "必修，3 學分", "t122": "擔任政大資科系孫士勝教授「作業系統」必修課助教，協助課程事務，並於助教時間解答學生問題。", "t123": "最後更新：2026 年 11 月", "t124": "工業物聯網（Industrial Internet of Things, IIoT）在事件驅動情境下常產生突發性的上行流量，使邊緣節點上的服務功能鏈（Service Function Chain, SFC）佇列瞬間壅塞，導致服務延遲惡化且違反服務品質（Quality of Service, QoS）標準。本研究針對已完成虛擬網路功能（Virtual Network Function, VNF）部署的 IIoT 邊緣節點，提出一套基於深度強化學習（Deep Reinforcement Learning, DRL）的動態排程機制。建構包含全域緩衝區與各 VNF 階段佇列的兩層佇列模型，並以兩狀態複合卜瓦松過程（Poisson process）描述突發到達。將排程問題建模為馬可夫決策過程（Markov Decision Process, MDP）後，採用近端策略最佳化（Proximal Policy Optimization, PPO）演算法，輸出各 VNF 的請求放行量。模擬結果顯示，本研究所提方法在突發流量下能有效降低佇列延遲與 QoS 違反率。", "t125": "工業物聯網（Industrial Internet of Things, IIoT）場域中，前處理、檢測、推論與回饋控制等多階段即時服務呈工作流型態，任一階段資源不足將使排隊效應沿服務鏈累積，增加端到端延遲與超時風險，亦受存取層與邊緣運算壅塞影響。本研究以服務功能鏈（Service Function Chain, SFC）描述多階段流程，於非正交多重存取（Non-Orthogonal Multiple Access, NOMA）無線環境下，考慮功率分配與 SIC 解碼順序採既定規則、子通道配置作為唯一 NOMA 決策變因，聚焦系統層聯合決策：子通道配置、任務卸載、邊緣算力排程及虛擬網路功能（Virtual Network Function, VNF）放置，建模為 NP-hard 之混合整數非線性規劃問題（Mixed-Integer Nonlinear Programming, MINLP）。透過 TD3 深度強化學習設計線上決策，並以貪婪法與遺傳演算法作為比較基準。模擬結果驗證本研究所提方法於端到端延遲與資源效率均優於基準。", "h1": "吳沁宇<span class=\"sub\" style=\"font-size:.42em;margin-top:6px\">Chin-Yu Wu</span>"};
+  var langBtn = document.getElementById('lang-toggle');
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  nodes.forEach(function (el) { el.setAttribute('data-en', el.innerHTML); });
+  var titleEn = document.title;
+  function setLang(l) {
+    var zh = l === 'zh';
+    root.setAttribute('data-lang', zh ? 'zh' : 'en');
+    root.setAttribute('lang', zh ? 'zh-Hant' : 'en');
+    nodes.forEach(function (el) {
+      var k = el.getAttribute('data-i18n');
+      el.innerHTML = zh && ZH[k] ? ZH[k] : el.getAttribute('data-en');
+    });
+    document.title = zh ? '吳沁宇 Chin-Yu Wu' : titleEn;
+    langBtn.textContent = zh ? 'EN' : '中文';
+    langBtn.setAttribute('lang', zh ? 'en' : 'zh-Hant');
+    langBtn.setAttribute('aria-label', zh ? 'Switch to English' : '切換為中文');
+    copyBtn.textContent = zh ? '複製' : 'Copy';
+    sync();
+  }
+  var copyBtn = document.getElementById('copy-email');
+  langBtn.addEventListener('click', function () {
+    var next = root.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
+    setLang(next);
+    try { localStorage.setItem('cyw-lang', next); } catch (e) {}
+  });
+  try { if (localStorage.getItem('cyw-lang') === 'zh') setLang('zh'); } catch (e) {}
+
+  var dlg = document.getElementById('lightbox');
+  var img = document.getElementById('lb-img');
+  var cap = document.getElementById('lb-cap');
+  document.querySelectorAll('figure button[data-full]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      img.src = b.getAttribute('data-full');
+      var c = (root.getAttribute('data-lang') === 'zh' && b.getAttribute('data-cap-zh')) || b.getAttribute('data-cap') || '';
+      img.alt = c; cap.textContent = c;
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    });
+  });
+  function close() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  document.getElementById('lb-close').addEventListener('click', close);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+
+  copyBtn.addEventListener('click', function () {
+    var text = document.getElementById('email').textContent;
+    var zhNow = root.getAttribute('data-lang') === 'zh';
+    function done(msg) { copyBtn.textContent = zhNow ? (msg === 'Copied' ? '已複製' : '已選取') : msg; setTimeout(function () { copyBtn.textContent = zhNow ? '複製' : 'Copy'; }, 1600); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done('Copied'); }, fallback);
+    } else { fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
