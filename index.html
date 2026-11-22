@@ -77,7 +77,7 @@ main { padding-block: 48px 80px; min-width: 0; }
 .id-row { display: flex; align-items: center; gap: 24px; }
 .id-text { display: grid; gap: 10px; min-width: 0; }
 .headshot { width: 128px; height: 128px; border-radius: 50%; object-fit: cover; flex: none; border: 3px solid var(--surface); box-shadow: var(--shadow); background: var(--surface); }
-@media (max-width: 520px) { .id-row { gap: 16px; } .headshot { width: 88px; height: 88px; } }
+@media (max-width: 520px) { .id-row { gap: 16px; } .headshot { width: 88px; height: 88px; } .figs.row.gallery { gap: 10px; } .figs.row.gallery figure button { height: 112px; } }
 .hero h1 { font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 800; letter-spacing: -.01em; }
 .hero p.lede { font-size: 1.15rem; max-width: 62ch; margin: 0; color: var(--ink); }
 .hero p.lede em { font-style: normal; color: var(--signal); font-weight: 500; }
@@ -135,6 +135,10 @@ figure button {
 figure img { display: block; width: 100%; height: auto; max-width: 100%; }
 figure.crop button { aspect-ratio: 4 / 3; }
 figure.crop img { height: 100%; object-fit: cover; }
+.figs.row.gallery { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+.gallery figure { width: min-content; max-width: 100%; }
+.gallery figure button { height: 180px; width: auto; max-width: 100%; }
+.gallery figure img { height: 100%; width: auto; max-width: none; object-fit: contain; }
 figcaption { font-size: .78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
 
 /* table */
@@ -282,7 +286,7 @@ dialog button { background: none; border: 1px solid #5A6872; color: #E4EBEE; bor
         </div>
       </article>
 
-      <article class="entry">
+      <article class="entry wide-figs">
         <div>
           <h3 data-i18n="t30">Congestion-Aware SFC Scheduling for Industrial IoT under Bursty Traffic</h3>
           <div class="meta"><span>Jia-Rong Lin, <span class="me">Chin-Yu Wu</span>, Ping-Chih Liu, Shi-Sheng Sun</span></div>
@@ -290,15 +294,15 @@ dialog button { background: none; border: 1px solid #5A6872; color: #E4EBEE; bor
           <p data-i18n="t33">The first version of the bursty-traffic scheduling study, presented at the joint MC 2026 and WASN 2026 conference, National Chung Hsing University, August 2026. The paper is written in Chinese with an English abstract.</p>
           <details class="abstract"><summary data-i18n="t34">English abstract</summary><p data-i18n="t124">Industrial Internet of Things (IIoT) applications often generate bursty uplink traffic under event-driven scenarios, causing instantaneous congestion in Service Function Chain (SFC) queues at edge nodes and degrading service latency and Quality of Service (QoS). This paper proposes a Deep Reinforcement Learning (DRL) based dynamic scheduling mechanism for IIoT edge nodes with pre-deployed Virtual Network Functions (VNFs). We construct a two-tier queuing model comprising a global buffer and per-VNF stage queues and characterize bursty arrivals using a two-state compound Poisson process. The scheduling problem is formulated as a Markov Decision Process (MDP) and solved by the Proximal Policy Optimization (PPO) algorithm, which outputs the release amount of each VNF. Simulation results show that the proposed method effectively reduces queuing delay and QoS violation rate under bursty traffic.</p></details>
           <div class="paper-actions"><a class="btn small" href="papers/WASN2026_full_paper.pdf" target="_blank" rel="noopener" data-i18n="t35">Full paper (PDF, 8 pages, in Chinese)</a></div>
-        </div>
-        <div class="figs">
-          <figure class="crop"><button type="button" data-full="images/04_WASN2026_best_paper_award.jpg" data-cap="Receiving the WASN 2026 Best Paper Award" data-cap-zh="WASN 2026 最佳論文頒獎"><img src="images/04_WASN2026_best_paper_award.jpg" alt="Award ceremony photo" loading="lazy"></button><figcaption data-i18n="t36">Receiving the award</figcaption></figure>
-          <figure><button type="button" data-full="images/05_WASN2026_certificate.jpg" data-cap="Best Paper Award certificate (in Chinese)" data-cap-zh="最佳論文獎狀"><img src="images/05_WASN2026_certificate.jpg" alt="Best Paper Award certificate" loading="lazy"></button><figcaption data-i18n="t37">Best Paper Award certificate</figcaption></figure>
-          <figure><button type="button" data-full="images/05b_WASN2026_presentation_certificate.jpg" data-cap="Certificate of presentation, WASN 2026 (in Chinese)" data-cap-zh="WASN 2026 發表證明"><img src="images/05b_WASN2026_presentation_certificate.jpg" alt="Certificate of presentation, WASN 2026" loading="lazy"></button><figcaption data-i18n="t38">Certificate of presentation</figcaption></figure>
+          <div class="figs row gallery">
+            <figure class="photo"><button type="button" data-full="images/04_WASN2026_best_paper_award.jpg" data-cap="Receiving the WASN 2026 Best Paper Award" data-cap-zh="WASN 2026 最佳論文頒獎"><img src="images/04_WASN2026_best_paper_award.jpg" alt="Award ceremony photo" loading="lazy"></button><figcaption data-i18n="t36">Receiving the award</figcaption></figure>
+            <figure><button type="button" data-full="images/05_WASN2026_certificate.jpg" data-cap="Best Paper Award certificate (in Chinese)" data-cap-zh="最佳論文獎狀"><img src="images/05_WASN2026_certificate.jpg" alt="Best Paper Award certificate" loading="lazy"></button><figcaption data-i18n="t37">Best Paper Award certificate</figcaption></figure>
+            <figure><button type="button" data-full="images/05b_WASN2026_presentation_certificate.jpg" data-cap="Certificate of presentation, WASN 2026 (in Chinese)" data-cap-zh="WASN 2026 發表證明"><img src="images/05b_WASN2026_presentation_certificate.jpg" alt="Certificate of presentation, WASN 2026" loading="lazy"></button><figcaption data-i18n="t38">Certificate of presentation</figcaption></figure>
+          </div>
         </div>
       </article>
 
-      <article class="entry">
+      <article class="entry wide-figs">
         <div>
           <h3 data-i18n="t39">Deep Reinforcement Learning for End-to-End Latency Optimization in NOMA&ndash;MEC-Enabled IIoT</h3>
           <div class="meta"><span><span class="me">Chin-Yu Wu</span>, Jia-Rong Lin, Ping-Chih Liu, Shi-Sheng Sun</span></div>
@@ -306,12 +310,11 @@ dialog button { background: none; border: 1px solid #5A6872; color: #E4EBEE; bor
           <p data-i18n="t41">The first version of the IoT Journal work, using a TD3 agent, which I presented as a poster in August 2026. The paper is written in Chinese with an English abstract.</p>
           <details class="abstract"><summary data-i18n="t34">English abstract</summary><p data-i18n="t125">In Industrial Internet of Things (IIoT) environments, multi-stage real-time services such as preprocessing, anomaly detection, model inference, and feedback control form workflow-style processing chains. Insufficient resources at any stage can cause queuing effects to accumulate along the chain, increasing end-to-end (E2E) latency and the risk of task timeouts, jointly affected by access-layer and edge-computing congestion. This paper models the multi-stage processing flow as a Service Function Chain (SFC) under a Non-Orthogonal Multiple Access (NOMA) wireless transmission environment, where the power allocation and Successive Interference Cancellation (SIC) decoding order follow fixed rules and subchannel assignment serves as the only NOMA-related decision variable, and focuses on system-level joint decisions: subchannel assignment, task offloading, edge-computing resource scheduling, and Virtual Network Function (VNF) placement. Since the joint optimization constitutes a Mixed-Integer Nonlinear Programming (MINLP) problem and is NP-hard, we employ the Twin Delayed Deep Deterministic policy gradient (TD3) deep reinforcement learning to design an online decision-making mechanism, with greedy and genetic algorithms as baselines. Simulation results validate that the proposed method outperforms the baselines in both E2E latency and resource efficiency.</p></details>
           <div class="paper-actions"><a class="btn small" href="papers/MC2026_full_paper.pdf" target="_blank" rel="noopener" data-i18n="t35">Full paper (PDF, 8 pages, in Chinese)</a><a class="btn small" href="papers/MC2026_poster.pdf" target="_blank" rel="noopener" data-i18n="t42">Poster (PDF)</a></div>
-          <figure style="max-width:460px;margin-top:14px"><button type="button" data-full="images/20_MC2026_delay_comparison.jpg" data-cap="Average end-to-end delay: TD3 6.452 ms, greedy 9.599 ms, genetic algorithm 7.271 ms (MC 2026)" data-cap-zh="平均端到端延遲：TD3 6.452 ms、貪婪法 9.599 ms、遺傳演算法 7.271 ms（MC 2026）"><img src="images/20_MC2026_delay_comparison.jpg" alt="Bar chart of end-to-end delay for TD3, greedy, and GA" loading="lazy" style="background:#fff"></button><figcaption data-i18n="t43">End-to-end delay: TD3 6.45 ms vs. greedy 9.60 ms and GA 7.27 ms</figcaption></figure>
-        </div>
-        <div class="figs">
-          <figure><button type="button" data-full="images/21_MC2026_poster.jpg" data-cap="The MC 2026 poster (in Chinese)" data-cap-zh="MC 2026 海報"><img src="images/21_MC2026_poster.jpg" alt="MC 2026 poster" loading="lazy"></button><figcaption data-i18n="t44">The poster (in Chinese)</figcaption></figure>
-          <figure><button type="button" data-full="images/02_MC2026_poster.jpg" data-cap="Presenting the poster at MC 2026" data-cap-zh="MC 2026 海報發表"><img src="images/02_MC2026_poster.jpg" alt="Chin-Yu Wu presenting her poster" loading="lazy"></button><figcaption data-i18n="t45">Presenting the poster</figcaption></figure>
-          <figure><button type="button" data-full="images/03_MC2026_certificate.jpg" data-cap="Certificate of presentation, MC 2026 (in Chinese)" data-cap-zh="MC 2026 發表證明"><img src="images/03_MC2026_certificate.jpg" alt="Certificate of presentation" loading="lazy"></button><figcaption data-i18n="t38">Certificate of presentation</figcaption></figure>
+          <div class="figs row gallery">
+            <figure><button type="button" data-full="images/21_MC2026_poster.jpg" data-cap="The MC 2026 poster (in Chinese)" data-cap-zh="MC 2026 海報"><img src="images/21_MC2026_poster.jpg" alt="MC 2026 poster" loading="lazy"></button><figcaption data-i18n="t44">The poster (in Chinese)</figcaption></figure>
+            <figure class="photo"><button type="button" data-full="images/02_MC2026_poster.jpg" data-cap="Presenting the poster at MC 2026" data-cap-zh="MC 2026 海報發表"><img src="images/02_MC2026_poster.jpg" alt="Chin-Yu Wu presenting her poster" loading="lazy"></button><figcaption data-i18n="t45">Presenting the poster</figcaption></figure>
+            <figure><button type="button" data-full="images/03_MC2026_certificate.jpg" data-cap="Certificate of presentation, MC 2026 (in Chinese)" data-cap-zh="MC 2026 發表證明"><img src="images/03_MC2026_certificate.jpg" alt="Certificate of presentation" loading="lazy"></button><figcaption data-i18n="t38">Certificate of presentation</figcaption></figure>
+          </div>
         </div>
       </article>
     </section>
